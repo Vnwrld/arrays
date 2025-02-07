@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Laboratório Arrays</title>
+</head>
+<body>
+    <div id="botoes">
+        <h1>Laboratório de JavaScript - Arrays</h1>
+        <button onclick="mostrarResultado(1)">Filtrar Inventores (1500-1599)</button>
+        <button onclick="mostrarResultado(2)">Nome Completo dos Inventores</button>
+        <button onclick="mostrarResultado(3)">Ordenar por Nascimento</button>
+        <button onclick="mostrarResultado(4)">Anos Vivos Total</button>
+        <button onclick="mostrarResultado(5)">Ordenar por Idade</button>
+        <button onclick="mostrarResultado(6)">Remover Redundâncias</button>
+    </div>
+    <pre id="resultado"></pre>
+
+    <script>
+        const inventors = [
+            { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
+            { first: 'Isaac', last: 'Newton', year: 1643, passed: 1727 },
+            { first: 'Galileo', last: 'Galilei', year: 1564, passed: 1642 },
+            { first: 'Marie', last: 'Curie', year: 1867, passed: 1934 },
+            { first: 'Johannes', last: 'Kepler', year: 1571, passed: 1630 },
+            { first: 'Nicolaus', last: 'Copernicus', year: 1473, passed: 1543 },
+            { first: 'Max', last: 'Planck', year: 1858, passed: 1947 },
+            { first: 'Katherine', last: 'Blodgett', year: 1898, passed: 1979 },
+            { first: 'Ada', last: 'Lovelace', year: 1815, passed: 1852 },
+            { first: 'Sarah E.', last: 'Goode', year: 1855, passed: 1905 },
+            { first: 'Lise', last: 'Meitner', year: 1878, passed: 1968 },
+            { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
+        ];
+
+        const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike',
+                      'walk', 'car', 'van', 'car', 'truck'];
+
+        function filtrarInventores() {
+            return inventors.filter(inv => inv.year >= 1500 && inv.year < 1600);
+        }
+
+        function nomesInventores() {
+            return inventors.map(inv => `${inv.first} ${inv.last}`);
+        }
+
+        function ordenarNascimento() {
+            return [...inventors].sort((a, b) => a.year - b.year);
+        }
+
+        function totalAnosVivos() {
+            return inventors.reduce((total, inv) => total + (inv.passed - inv.year), 0);
+        }
+
+        function ordenarPorIdade() {
+            return [...inventors].sort((a, b) => (b.passed - b.year) - (a.passed - a.year));
+        }
+
+        function removerRedundancias() {
+            return [...new Set(data)];
+        }
+
+        function mostrarResultado(questao) {
+            let resultado;
+            switch (questao) {
+                case 1: resultado = filtrarInventores(); break;
+                case 2: resultado = nomesInventores(); break;
+                case 3: resultado = ordenarNascimento(); break;
+                case 4: resultado = totalAnosVivos(); break;
+                case 5: resultado = ordenarPorIdade(); break;
+                case 6: resultado = removerRedundancias(); break;
+                default: resultado = 'Opção inválida';
+            }
+            document.getElementById('resultado').textContent = JSON.stringify(resultado, null, 2);
+        }
+    </script>
+</body>
+</html>
